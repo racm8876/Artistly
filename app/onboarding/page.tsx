@@ -137,7 +137,7 @@ export default function OnboardingPage() {
         </p>
       </div>
 
-      {/* Progress */}
+      {/* Progress
       <div className="mb-8">
         <div className="flex justify-between items-center mb-4">
           {STEPS.map((step, index) => (
@@ -173,15 +173,58 @@ export default function OnboardingPage() {
           ))}
         </div>
         <Progress value={progress} className="h-2" />
+      </div> */}
+      {/* Progress */}
+    <div className="mb-8">
+      <div className="flex justify-between items-center mb-4">
+        {STEPS.map((step, index) => (
+          <div
+            key={step.id}
+            className={`flex items-center ${index < STEPS.length - 1 ? 'flex-1' : ''}`}
+          >
+            <div className={`
+              w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
+              ${currentStep >= step.id
+                ? 'bg-primary text-primary-foreground'
+                : 'bg-muted text-muted-foreground'}
+            `}>
+              {step.id}
+            </div>
+            <div className="ml-3 hidden sm:block">
+              <div className={`text-sm font-medium ${
+                currentStep >= step.id ? 'text-primary' : 'text-muted-foreground'
+              }`}>
+                {step.title}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {step.description}
+              </div>
+            </div>
+            {index < STEPS.length - 1 && (
+              <div className={`flex-1 h-0.5 mx-4 ${
+                currentStep > step.id ? 'bg-primary' : 'bg-muted'
+              }`} />
+            )}
+          </div>
+        ))}
       </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>{STEPS[currentStep - 1].title}</CardTitle>
-              <CardDescription>{STEPS[currentStep - 1].description}</CardDescription>
-            </CardHeader>
+      {/* Replaced Progress bar */}
+      <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+        <div
+          className="bg-blue-500 h-full transition-all duration-300"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+    </div>
+
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>{STEPS[currentStep - 1].title}</CardTitle>
+            <CardDescription>{STEPS[currentStep - 1].description}</CardDescription>
+          </CardHeader>
 
             <CardContent className="space-y-6">
               {currentStep === 1 && (
